@@ -1,0 +1,12 @@
+{
+  "name": "report-reader",
+  "version": "1.0.0",
+  "description": "> A Node CLI command to read a Report Folder from a Sandbox alias and print out the Reports by FullName <FolderName/ReportName>",
+  "main": "index.js",
+  "scripts": {
+    "start": "node src"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
