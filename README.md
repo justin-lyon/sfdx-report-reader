@@ -9,7 +9,7 @@
 git clone <repo url>
 
 # change directory to the repo
-cd report-reader
+cd sfdx-report-reader
 
 # run the command
 # output > src/reportNames.log
