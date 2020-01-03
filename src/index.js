@@ -5,7 +5,6 @@ if (!folderName) throw new Error('Second argument should be a folder api name. e
 const { spawn } = require('child_process')
 const fs = require('fs')
 const path = require('path')
-// const reports = require('./reports')
 const output = path.join('src', 'reportNames.log')
 
 const alias = args[0]
@@ -39,10 +38,7 @@ const main = () => {
   burpStream(listMetadata.stdout)
     .then(data => {
       const reports = JSON.parse(data).result
-      // console.log(reports)
-      console.log(typeof reports)
       const fullNames = reports.map(r => r.fullName)
-      console.log(fullNames)
       fs.writeFile(output, fullNames.join('\n'), err => {
         if (err) console.error('Error writing to file: ', err)
       })
