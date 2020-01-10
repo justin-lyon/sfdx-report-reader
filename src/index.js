@@ -1,16 +1,23 @@
-const args = process.argv.slice(2)
-if (!alias) throw new Error('First argument should be a sandbox alias. ex: `npm start <my-alias>`')
-if (!folderName) throw new Error('Second argument should be a folder api name. ex: `npm start <my-alias> <my-folder-name>`')
+// const args = process.argv.slice(2)
+// if (!alias) throw new Error('First argument should be a sandbox alias. ex: `npm start <my-alias>`')
+// if (!folderName) throw new Error('Second argument should be a folder api name. ex: `npm start <my-alias> <my-folder-name>`')
 
 const { spawn } = require('child_process')
 const fs = require('fs')
 const path = require('path')
-const output = path.join('src', 'reportNames.log')
 
-const alias = args[0]
-const folderName = args[1]
+const outputPath = path.join(__dirname, 'logs')
+const outputFile = path.join(outputPath, 'emailTemplateNames.log')
 
-const mdapiArgs = [ 'force:mdapi:listmetadata', '-u', alias, '-m', 'Report', '--folder', folderName, '--json' ]
+fs.mkdirSync(outputPath, { recursive: true })
+
+// const alias = args[0]
+// const folderName = args[1]
+const alias = 'nlg-uat'
+const folderName = 'unfiled$public'
+const metaData = 'EmailTemplate'
+
+const mdapiArgs = [ 'force:mdapi:listmetadata', '-u', alias, '-m', metaData, '--folder', folderName, '--json' ]
 const options = {
   cwd: path.join(__dirname, '..'),
   env: process.env,
@@ -39,7 +46,7 @@ const main = () => {
     .then(data => {
       const reports = JSON.parse(data).result
       const fullNames = reports.map(r => r.fullName)
-      fs.writeFile(output, fullNames.join('\n'), err => {
+      fs.writeFile(outputFile, fullNames.join('\n'), err => {
         if (err) console.error('Error writing to file: ', err)
       })
     })
