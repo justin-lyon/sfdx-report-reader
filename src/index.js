@@ -1,4 +1,8 @@
 const args = process.argv.slice(2)
+
+const alias = args[0]
+const folderName = args[1]
+
 if (!alias) throw new Error('First argument should be a sandbox alias. ex: `npm start <my-alias>`')
 if (!folderName) throw new Error('Second argument should be a folder api name. ex: `npm start <my-alias> <my-folder-name>`')
 
@@ -7,10 +11,7 @@ const fs = require('fs')
 const path = require('path')
 const output = path.join('src', 'reportNames.log')
 
-const alias = args[0]
-const folderName = args[1]
-
-const mdapiArgs = [ 'force:mdapi:listmetadata', '-u', alias, '-m', 'Report', '--folder', folderName, '--json' ]
+const mdapiArgs = ['force:mdapi:listmetadata', '-u', alias, '-m', 'Report', '--folder', folderName, '--json']
 const options = {
   cwd: path.join(__dirname, '..'),
   env: process.env,
